@@ -1,0 +1,160 @@
+/* ── Reset & Base ───────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap');
+
+:root {
+  --bg:        #f5f2ec;
+  --surface:   #ffffff;
+  --ink:       #1a1714;
+  --muted:     #6b6560;
+  --accent:    #c0392b;
+  --border:    #dedad4;
+  --radius:    6px;
+  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Source Serif 4', Georgia, serif;
+  line-height: 1.7;
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+}
+
+/* ── Header ─────────────────────────────────────────── */
+header {
+  max-width: 680px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+}
+
+.subtitle {
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+/* ── FAQ Container ───────────────────────────────────── */
+#faq-container {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── QA Item ─────────────────────────────────────────── */
+.qa-item {
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+}
+
+.qa-item:first-child {
+  border-top: 1px solid var(--border);
+}
+
+/* Question (button) */
+.qa-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 0.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--ink);
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.5;
+  transition: color var(--transition);
+}
+
+.qa-question:hover {
+  color: var(--accent);
+}
+
+.qa-question:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius);
+}
+
+/* Icon cue */
+.qa-icon {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+  user-select: none;
+}
+
+/* Active state icon */
+.qa-item.open .qa-icon {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  transform: rotate(45deg);
+}
+
+/* Answer */
+.qa-answer-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition);
+}
+
+.qa-item.open .qa-answer-wrapper {
+  grid-template-rows: 1fr;
+}
+
+.qa-answer-inner {
+  overflow: hidden;
+}
+
+.qa-answer {
+  padding: 0 0.25rem 1.5rem;
+  color: var(--muted);
+  font-size: 0.97rem;
+  font-weight: 300;
+  line-height: 1.8;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.qa-item.open .qa-answer {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 480px) {
+  .qa-question { font-size: 0.97rem; }
+}
